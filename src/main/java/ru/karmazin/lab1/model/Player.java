@@ -3,8 +3,8 @@ package ru.karmazin.lab1.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
+import java.util.Set;
 
 /**
  * @author Vladislav Karmazin
@@ -37,19 +37,8 @@ public class Player {
     @Column(name = "rating")
     private Double rating;
 
-    @Column(name = "number")
-    private int number;
-
-    @Column(name = "role")
-    private PlayerRole role;
-
-    @ManyToMany
-    @JoinTable(name = "player_team",
-            joinColumns = @JoinColumn(name = "player_id"),
-            inverseJoinColumns = @JoinColumn(name = "team_id")
-    )
-
-    private List<Team> teams;
+    @OneToMany(mappedBy = "player")
+    private Set<PlayerTeam> playerTeams;
 
     public Player() {
     }
@@ -68,8 +57,6 @@ public class Player {
         this.patronymic = patronymic;
         this.birthday = birthday;
         this.rating = rating;
-        this.number = number;
-        this.role = role;
     }
 
     public int getId() {
@@ -120,27 +107,11 @@ public class Player {
         this.rating = rating;
     }
 
-    public int getNumber() {
-        return number;
+    public Set<PlayerTeam> getPlayerTeams() {
+        return playerTeams;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public PlayerRole getRole() {
-        return role;
-    }
-
-    public void setRole(PlayerRole role) {
-        this.role = role;
-    }
-
-    public List<Team> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
+    public void setPlayerTeams(Set<PlayerTeam> playerTeams) {
+        this.playerTeams = playerTeams;
     }
 }

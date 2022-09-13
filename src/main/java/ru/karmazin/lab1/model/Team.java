@@ -2,7 +2,7 @@ package ru.karmazin.lab1.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Vladislav Karmazin
@@ -19,8 +19,8 @@ public class Team {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "teams")
-    private List<Player> players;
+    @OneToMany(mappedBy = "team")
+    private Set<PlayerTeam> playerTeams;
 
     public Team() {}
 
@@ -45,11 +45,11 @@ public class Team {
         this.name = name;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public Set<PlayerTeam> getPlayerTeams() {
+        return playerTeams;
     }
 
-    public void setPlayers(List<Player> players) {
-        this.players = players;
+    public void setPlayerTeams(Set<PlayerTeam> playerTeams) {
+        this.playerTeams = playerTeams;
     }
 }

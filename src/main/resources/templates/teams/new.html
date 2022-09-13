@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/teams}" th:object="${team}">
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <br/>
+    <label for="name">Enter name:
+        <input id="name" type="text" name="name" th:field="*{name}"/>
+    </label><br/>
+    <div th:each="player : ${players}">
+        <a th:href="@{/players/{id}(id=${player.getId()})}"
+           th:text="${player.getName()}">player</a>
+    </div>
+</form>
+
+</body>
+</html>

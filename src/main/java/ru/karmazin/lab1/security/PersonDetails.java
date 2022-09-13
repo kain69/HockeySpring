@@ -1,10 +1,12 @@
 package ru.karmazin.lab1.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.karmazin.lab1.model.Person;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author Vladislav Karmazin
@@ -18,7 +20,7 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(person.getRole()));
     }
 
     @Override

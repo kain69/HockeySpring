@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+<p th:text="|${team.getId()}: ${team.getName()}|">VALUE</p>
+
+<hr/>
+
+<div th:each="player : ${team.getPlayerTeams()}">
+    <a th:href="@{/players/{id}(id=${player.getPlayer().getId()})}"
+       th:text="${player.getPlayer().getId()}+':'
+                +${player.getPlayer().getName()}+' '
+                +${player.getPlayer().getSurname()}+' '
+                +${player.getPlayer().getBirthday()}+' '
+                +${player.getPlayer().getRating()}+' '
+                +${player.getNumber()}+' '
+                +${player.getRole()}">player</a>
+</div>
+
+<hr/>
+
+<a th:href="@{/teams/{id}/edit(id=${team.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/teams/{id}(id=${team.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>
