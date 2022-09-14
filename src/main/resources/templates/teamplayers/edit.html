@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update person</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/teamplayers/{id}(id=${teamplayer.id})}" th:object="${teamplayer}">
+  <label for="name">Enter name:
+  <input type="text" th:field="*{player.name}" id="name"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{player.name}">Name Error</div>
+  <br/>
+  <label for="surname">Enter surname:
+    <input type="text" th:field="*{player.surname}" id="surname"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{player.surname}">Surname Error</div>
+  <br/>
+  <label for="patronymic">Enter patronymic:
+    <input type="text" th:field="*{player.patronymic}" id="patronymic"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{player.patronymic}">Patronymic Error</div>
+  <br/>
+  <label for="birthday">Enter birthday:
+    <input type="date" th:field="*{player.birthday}" id="birthday"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{player.birthday}">Birthday Error</div>
+  <br/>
+  <label for="rating">Enter rating:
+    <input type="text" th:field="*{player.rating}" id="rating"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('rating')}" th:errors="*{player.rating}">Rating Error</div>
+  <br/>
+  <label for="number">Enter number:
+    <input type="text" th:field="*{number}" id="number"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Number Error</div>
+  <br/>
+  <label for="role">Enter role:
+    <input type="text" th:field="*{role}" id="role"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</div>
+  <br/>
+<!--  TODO: Изменять только поля number и role-->
+  <input type="submit" value="Update!"/>
+</form>
+
+</body>
+</html>

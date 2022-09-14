@@ -1,10 +1,15 @@
 package ru.karmazin.lab1.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -31,6 +36,8 @@ public class Player {
     @Column(name = "patronymic")
     private String patronymic;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @NotNull(message = "Birthday should not be empty")
     @Column(name = "birthday")
     private Date birthday;

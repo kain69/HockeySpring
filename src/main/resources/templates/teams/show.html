@@ -9,15 +9,15 @@
 
 <hr/>
 
-<div th:each="player : ${team.getPlayerTeams()}">
-    <a th:href="@{/teamPlayer/{id}(id=${player.getPlayer().getId()})}"
-       th:text="${player.getPlayer().getId()}+':'
-                +${player.getPlayer().getName()}+' '
-                +${player.getPlayer().getSurname()}+' '
-                +${player.getPlayer().getBirthday()}+' '
-                +${player.getPlayer().getRating()}+' '
-                +${player.getNumber()}+' '
-                +${player.getRole()}">teamPlayer</a>
+<div th:each="teamplayer : ${team.getPlayerTeams()}">
+    <a th:href="@{/teamplayers/{id}(id=${teamplayer.player.id})}"
+       th:text="${teamplayer.player.id}+':'
+                +${teamplayer.player.name}+' '
+                +${teamplayer.player.surname}+' '
+                +${teamplayer.player.birthday}+' '
+                +${teamplayer.player.rating}+' '
+                +${teamplayer.number}+' '
+                +${teamplayer.role}">teamPlayer</a>
 </div>
 
 <hr/>

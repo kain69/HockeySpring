@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${teamplayer.id}+':'
+            +${teamplayer.player.name}+' '
+            +${teamplayer.player.surname}+' '
+            +${teamplayer.player.birthday}+' '
+            +${teamplayer.player.rating}+' '
+            +${teamplayer.number}+' '
+            +${teamplayer.role}">VALUE</p>
+
+<hr/>
+
+<a th:href="@{/teamplayers/{id}/edit(id=${teamplayer.id})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/teamplayers/{id}(id=${teamplayer.id})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>

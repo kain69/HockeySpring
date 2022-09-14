@@ -36,7 +36,7 @@ public class PlayerController {
     }
 
     @GetMapping("/new")
-    public String newTeam(@ModelAttribute("player") Player player) {
+    public String newPlayer(@ModelAttribute("player") Player player) {
         return "players/new";
     }
 

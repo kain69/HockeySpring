@@ -23,11 +23,12 @@ public class TeamPlayer {
 
     private int number;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private PlayerRole role;
 
     public TeamPlayer() {}
 
-    public TeamPlayer(int id, Player player, Team team, int number, String role) {
+    public TeamPlayer(int id, Player player, Team team, int number, PlayerRole role) {
         this.id = id;
         this.player = player;
         this.team = team;
@@ -69,11 +70,11 @@ public class TeamPlayer {
         this.number = number;
     }
 
-    public String getRole() {
+    public PlayerRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(PlayerRole role) {
         this.role = role;
     }
 }

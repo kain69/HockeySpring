@@ -12,10 +12,7 @@
     <label for="name">Enter name:
         <input id="name" type="text" name="name" th:field="*{name}"/>
     </label><br/>
-    <div th:each="player : ${players}">
-        <a th:href="@{/players/{id}(id=${player.getId()})}"
-           th:text="${player.getName()}">player</a>
-    </div>
+    <input type="submit" value="Create!"/>
 </form>
 
 </body>
