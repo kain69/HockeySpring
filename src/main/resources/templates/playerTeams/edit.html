@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update person</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/players/{id}(id=${player.getId()})}" th:object="${player}">
+  <label for="name">Enter name:
+  <input type="text" th:field="*{name}" id="name"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+  <br/>
+  <label for="surname">Enter surname:
+    <input type="text" th:field="*{surname}" id="surname"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+  <br/>
+  <label for="patronymic">Enter patronymic:
+    <input type="text" th:field="*{patronymic}" id="patronymic"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}">Patronymic Error</div>
+  <br/>
+  <label for="birthday">Enter birthday:
+    <input type="text" th:field="*{birthday}" id="birthday"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday Error</div>
+  <br/>
+  <label for="rating">Enter rating:
+    <input type="text" th:field="*{rating}" id="rating"/>
+  </label>
+  <div style="color:red" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}">Rating Error</div>
+  <br/>
+<!--  TODO: Прокинуть id команды из которой перешёл, и по ней искать параметры number и role-->
+  <input type="submit" value="Update!"/>
+</form>
+
+</body>
+</html>

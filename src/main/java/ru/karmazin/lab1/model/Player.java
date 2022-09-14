@@ -2,6 +2,7 @@ package ru.karmazin.lab1.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class Player {
     @Column(name = "patronymic")
     private String patronymic;
 
-    @NotEmpty(message = "Birthday should not be empty")
+    @NotNull(message = "Birthday should not be empty")
     @Column(name = "birthday")
     private Date birthday;
 
@@ -38,7 +39,7 @@ public class Player {
     private Double rating;
 
     @OneToMany(mappedBy = "player")
-    private Set<PlayerTeam> playerTeams;
+    private Set<TeamPlayer> teamPlayers;
 
     public Player() {
     }
@@ -107,11 +108,11 @@ public class Player {
         this.rating = rating;
     }
 
-    public Set<PlayerTeam> getPlayerTeams() {
-        return playerTeams;
+    public Set<TeamPlayer> getPlayerTeams() {
+        return teamPlayers;
     }
 
-    public void setPlayerTeams(Set<PlayerTeam> playerTeams) {
-        this.playerTeams = playerTeams;
+    public void setPlayerTeams(Set<TeamPlayer> teamPlayers) {
+        this.teamPlayers = teamPlayers;
     }
 }

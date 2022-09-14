@@ -10,14 +10,14 @@
 <hr/>
 
 <div th:each="player : ${team.getPlayerTeams()}">
-    <a th:href="@{/players/{id}(id=${player.getPlayer().getId()})}"
+    <a th:href="@{/teamPlayer/{id}(id=${player.getPlayer().getId()})}"
        th:text="${player.getPlayer().getId()}+':'
                 +${player.getPlayer().getName()}+' '
                 +${player.getPlayer().getSurname()}+' '
                 +${player.getPlayer().getBirthday()}+' '
                 +${player.getPlayer().getRating()}+' '
                 +${player.getNumber()}+' '
-                +${player.getRole()}">player</a>
+                +${player.getRole()}">teamPlayer</a>
 </div>
 
 <hr/>

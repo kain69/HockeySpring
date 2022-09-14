@@ -20,7 +20,7 @@ public class Team {
     private String name;
 
     @OneToMany(mappedBy = "team")
-    private Set<PlayerTeam> playerTeams;
+    private Set<TeamPlayer> teamPlayers;
 
     public Team() {}
 
@@ -45,11 +45,11 @@ public class Team {
         this.name = name;
     }
 
-    public Set<PlayerTeam> getPlayerTeams() {
-        return playerTeams;
+    public Set<TeamPlayer> getPlayerTeams() {
+        return teamPlayers;
     }
 
-    public void setPlayerTeams(Set<PlayerTeam> playerTeams) {
-        this.playerTeams = playerTeams;
+    public void setPlayerTeams(Set<TeamPlayer> teamPlayers) {
+        this.teamPlayers = teamPlayers;
     }
 }

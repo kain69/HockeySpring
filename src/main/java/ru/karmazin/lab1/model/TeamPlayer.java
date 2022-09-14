@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "player_team")
-public class PlayerTeam {
+public class TeamPlayer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,9 @@ public class PlayerTeam {
 
     private String role;
 
-    public PlayerTeam() {}
+    public TeamPlayer() {}
 
-    public PlayerTeam(int id, Player player, Team team, int number, String role) {
+    public TeamPlayer(int id, Player player, Team team, int number, String role) {
         this.id = id;
         this.player = player;
         this.team = team;
