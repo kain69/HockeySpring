@@ -50,7 +50,7 @@ public class PlayerController {
         return "redirect:/players";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("player", playersService.findOne(id));
         return "players/edit";
@@ -67,7 +67,7 @@ public class PlayerController {
         return "redirect:/players";
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         playersService.delete(id);
         return "redirect:/players";

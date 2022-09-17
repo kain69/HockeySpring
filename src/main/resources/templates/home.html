@@ -17,12 +17,11 @@
     </div>
     <div><a class="h2" th:href="@{/players}">Players</a>
         <form th:action="@{/logout}" th:method="POST">
-            <input type="submit" value="Logout">
+            <div class="text-center p-3">
+                <button type="submit" class="btn btn-primary">Logout</button>
+            </div>
         </form>
     </div>
 </div>
-
-<hr/>
-
 </body>
 </html>

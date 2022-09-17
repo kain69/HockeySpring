@@ -17,4 +17,9 @@ public class HomeController {
     public String adminPage(){
         return "admin";
     }
+
+    @GetMapping()
+    public String homePage2(){
+        return "redirect:/home";
+    }
 }

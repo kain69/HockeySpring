@@ -55,7 +55,7 @@ public class TeamController {
         return "redirect:/teams";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("team", teamsService.findOne(id));
         return "teams/edit";
@@ -72,7 +72,7 @@ public class TeamController {
         return "redirect:/teams";
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         teamsService.delete(id);
         return "redirect:/teams";
