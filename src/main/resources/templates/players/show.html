@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,9 +9,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}"/>
     <title>Show</title>
 </head>
-<body>
+<body layout:fragment="content">
 <p th:text="${player.id}+':'
             +${player.name}+' '
             +${player.surname}+' '

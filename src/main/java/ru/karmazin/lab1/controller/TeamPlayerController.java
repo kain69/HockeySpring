@@ -5,8 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.karmazin.lab1.model.PlayerRole;
 import ru.karmazin.lab1.model.TeamPlayer;
+import ru.karmazin.lab1.repository.TeamsRepository;
+import ru.karmazin.lab1.service.PlayersService;
 import ru.karmazin.lab1.service.TeamPlayersService;
+import ru.karmazin.lab1.service.TeamsService;
 
 import javax.validation.Valid;
 
@@ -18,59 +22,66 @@ import javax.validation.Valid;
 public class TeamPlayerController {
 
     private final TeamPlayersService teamPlayersService;
+    private final TeamsService teamsService;
+    private final PlayersService playersService;
 
     @Autowired
-    public TeamPlayerController(TeamPlayersService teamPlayersService) {
+    public TeamPlayerController(TeamPlayersService teamPlayersService, TeamsService teamsService, PlayersService playersService) {
         this.teamPlayersService = teamPlayersService;
-    }
-
-    @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("teamplayers", teamPlayersService.findAll());
-        return "teamplayers/index";
-    }
-
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("teamplayer", teamPlayersService.findOne(id));
-        return "teamplayers/show";
+        this.teamsService = teamsService;
+        this.playersService = playersService;
     }
 
     @GetMapping("/new")
-    public String newTeam(@ModelAttribute("teamplayer") TeamPlayer teamplayer) {
+    public String newTeamPlayer(@RequestParam(name = "team_id") int teamId,
+                                @ModelAttribute("teamplayer") TeamPlayer teamPlayer,
+                                Model model) {
+        model.addAttribute("targetTeam", teamId);
+        model.addAttribute("players", playersService.findAll());
+        model.addAttribute("playerRoles", PlayerRole.values());
         return "teamplayers/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("teamplayer") @Valid TeamPlayer teamplayer,
+    public String create(@RequestParam(name = "team_id") int teamId,
+                         @ModelAttribute("teamplayer") @Valid TeamPlayer teamPlayer,
                          BindingResult bindingResult) {
+        teamPlayer.setTeam(teamsService.findOne(teamId));
         if (bindingResult.hasErrors())
             return "teamplayers/new";
 
-        teamPlayersService.save(teamplayer);
-        return "redirect:/players";
+        teamPlayersService.save(teamPlayer);
+        return "redirect:/teams/edit/" + teamId;
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("teamplayer", teamPlayersService.findOne(id));
+    @GetMapping("/edit")
+    public String edit(@RequestParam(name = "player_id") int playerId,
+                       @RequestParam(name = "team_id") int teamId,
+                       Model model) {
+        model.addAttribute("targetTeam", teamId);
+        model.addAttribute("teamplayer", teamPlayersService.findOne(playerId));
+        model.addAttribute("players", playersService.findAll());
+        model.addAttribute("playerRoles", PlayerRole.values());
         return "teamplayers/edit";
     }
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("teamplayer") @Valid TeamPlayer teamplayer,
-                         BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+    @PatchMapping()
+    public String update(@RequestParam(name = "player_id") int playerId,
+                         @RequestParam(name = "team_id") int teamId,
+                         @ModelAttribute("teamplayer") @Valid TeamPlayer teamPlayer,
+                         BindingResult bindingResult){
+        teamPlayer.setTeam(teamsService.findOne(teamId));
         if (bindingResult.hasErrors())
             return "teamplayers/edit";
 
-        teamPlayersService.update(id, teamplayer);
-        return "redirect:/teamplayers";
+        teamPlayersService.update(playerId, teamPlayer);
+        return "redirect:/teams/edit/" + teamId;
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
-        teamPlayersService.delete(id);
-        return "redirect:/teamplayers";
+    @GetMapping("/delete")
+    public String delete(@RequestParam(name = "player_id") int playerId,
+                         @RequestParam(name = "team_id") int teamId) {
+        teamPlayersService.delete(playerId);
+        return "redirect:/teams/edit/" + teamId;
     }
 }

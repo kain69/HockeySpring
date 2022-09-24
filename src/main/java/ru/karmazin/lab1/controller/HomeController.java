@@ -18,8 +18,8 @@ public class HomeController {
         return "admin";
     }
 
-    @GetMapping()
-    public String homePage2(){
+    @GetMapping("/*")
+    public String AnyPage(){
         return "redirect:/home";
     }
 }

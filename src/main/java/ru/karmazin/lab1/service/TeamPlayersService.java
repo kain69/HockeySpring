@@ -1,6 +1,8 @@
 package ru.karmazin.lab1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.karmazin.lab1.model.TeamPlayer;
@@ -24,6 +26,10 @@ public class TeamPlayersService {
 
     public List<TeamPlayer> findAll() {
         return teamPlayerRepository.findAll();
+    }
+
+    public List<TeamPlayer> findAllInTeam(int teamId){
+        return teamPlayerRepository.findAllInTeam(teamId);
     }
 
     public TeamPlayer findOne(int id) {

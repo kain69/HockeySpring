@@ -1,5 +1,7 @@
 package ru.karmazin.lab1.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 /**

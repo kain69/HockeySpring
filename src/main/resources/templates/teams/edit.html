@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -7,18 +9,61 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}"/>
   <title>Update team</title>
 </head>
-<body>
+<body layout:fragment="content">
+<div class="container text-center">
+  <div><h1>Edit Team</h1></div>
+</div>
+<form th:method="PATCH" th:action="@{/teams/{id}(id=${team.id})}" th:object="${team}"
+      style="max-width: 800px; margin: 0 auto">
+  <input type="hidden" th:field="*{id}"/>
+  <div class="m-3 text-center">
+    <div class="form-group row">
+      <label class="col-form-label col-sm-4" for="name">Enter name:</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" th:field="*{name}" id="name"/>
+      </div>
+      <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    </div>
 
-<form th:method="PATCH" th:action="@{/teams/{id}(id=${team.id})}" th:object="${team}">
-  <label for="name">Enter name:
-    <input type="text" th:field="*{name}" id="name"/>
-  </label>
-  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-  <br/>
-  <input type="submit" value="Update!"/>
+    <div class="text-center"><h3>Players List:</h3></div>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>Number</th>
+        <th>Full name</th>
+        <th>Birthday</th>
+        <th>Rating</th>
+        <th>Role</th>
+        <th style="width: 10%"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="playerTeams : ${team.playerTeams}">
+        <tr>
+          <td th:text="${playerTeams.number}"></td>
+          <td th:text="${playerTeams.player.name}+' '
+          +${playerTeams.player.surname}"></td>
+          <td th:pattern="dd.MM.yyyy" th:text="${playerTeams.player.birthday}"></td>
+          <td th:text="${playerTeams.player.rating}"></td>
+          <td th:text="${playerTeams.role}"></td>
+          <td>
+            <a th:href="@{/teamplayers/edit(player_id=${playerTeams.id}, team_id=${team.id})}"><span data-feather="settings"></span></a>
+            &nbsp;&nbsp;
+            <a th:href="@{/teamplayers/delete(player_id=${playerTeams.id}, team_id=${team.id})}"><span data-feather="trash-2"></span></a>
+          </td>
+        </tr>
+      </th:block>
+      </tbody>
+    </table>
+
+    <div class="text-center p-3">
+      <button type="submit" class="btn btn-dark">Save</button>
+      <a class="btn btn-dark" th:href="@{'/teamplayers/new?team_id=' + ${team.id}}">Create new player</a>
+    </div>
+  </div>
 </form>
-
 </body>
 </html>
