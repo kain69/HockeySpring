@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.karmazin.lab1.model.PlayerRole;
 import ru.karmazin.lab1.model.TeamPlayer;
-import ru.karmazin.lab1.repository.TeamsRepository;
 import ru.karmazin.lab1.service.PlayersService;
 import ru.karmazin.lab1.service.TeamPlayersService;
 import ru.karmazin.lab1.service.TeamsService;
@@ -18,7 +17,7 @@ import javax.validation.Valid;
  * @author Vladislav Karmazin
  */
 @Controller
-@RequestMapping("/teamplayers")
+@RequestMapping("/teams/edit/{id}/teamplayers")
 public class TeamPlayerController {
 
     private final TeamPlayersService teamPlayersService;
@@ -33,7 +32,7 @@ public class TeamPlayerController {
     }
 
     @GetMapping("/new")
-    public String newTeamPlayer(@RequestParam(name = "team_id") int teamId,
+    public String newTeamPlayer(@PathVariable("id") int teamId,
                                 @ModelAttribute("teamplayer") TeamPlayer teamPlayer,
                                 Model model) {
         model.addAttribute("targetTeam", teamId);
@@ -43,7 +42,7 @@ public class TeamPlayerController {
     }
 
     @PostMapping()
-    public String create(@RequestParam(name = "team_id") int teamId,
+    public String create(@PathVariable("id") int teamId,
                          @ModelAttribute("teamplayer") @Valid TeamPlayer teamPlayer,
                          BindingResult bindingResult) {
         teamPlayer.setTeam(teamsService.findOne(teamId));
@@ -56,7 +55,7 @@ public class TeamPlayerController {
 
     @GetMapping("/edit")
     public String edit(@RequestParam(name = "player_id") int playerId,
-                       @RequestParam(name = "team_id") int teamId,
+                       @PathVariable("id") int teamId,
                        Model model) {
         model.addAttribute("targetTeam", teamId);
         model.addAttribute("teamplayer", teamPlayersService.findOne(playerId));
@@ -67,9 +66,9 @@ public class TeamPlayerController {
 
     @PatchMapping()
     public String update(@RequestParam(name = "player_id") int playerId,
-                         @RequestParam(name = "team_id") int teamId,
+                         @PathVariable("id") int teamId,
                          @ModelAttribute("teamplayer") @Valid TeamPlayer teamPlayer,
-                         BindingResult bindingResult){
+                         BindingResult bindingResult) {
         teamPlayer.setTeam(teamsService.findOne(teamId));
         if (bindingResult.hasErrors())
             return "teamplayers/edit";
@@ -80,7 +79,7 @@ public class TeamPlayerController {
 
     @GetMapping("/delete")
     public String delete(@RequestParam(name = "player_id") int playerId,
-                         @RequestParam(name = "team_id") int teamId) {
+                         @PathVariable("id") int teamId) {
         teamPlayersService.delete(playerId);
         return "redirect:/teams/edit/" + teamId;
     }

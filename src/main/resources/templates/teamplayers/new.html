@@ -14,7 +14,7 @@
 </head>
 <body layout:fragment="content">
 <div class="container text-center">
-    <form th:method="POST" th:action="@{/teamplayers(team_id=${targetTeam})}" th:object="${teamplayer}"
+    <form th:method="POST" th:action="@{'/teams/edit/'+${targetTeam}+'/teamplayers'}" th:object="${teamplayer}"
           style="max-width: 600px; margin: 0 auto">
         <input type="hidden" th:field="*{id}"/>
         <div class="form-group row">

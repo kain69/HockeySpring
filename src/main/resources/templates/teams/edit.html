@@ -50,9 +50,9 @@
           <td th:text="${playerTeams.player.rating}"></td>
           <td th:text="${playerTeams.role}"></td>
           <td>
-            <a th:href="@{/teamplayers/edit(player_id=${playerTeams.id}, team_id=${team.id})}"><span data-feather="settings"></span></a>
+            <a th:href="@{'/teams/edit/'+${team.id}+'/teamplayers/'+edit(player_id=${playerTeams.id})}"><span data-feather="settings"></span></a>
             &nbsp;&nbsp;
-            <a th:href="@{/teamplayers/delete(player_id=${playerTeams.id}, team_id=${team.id})}"><span data-feather="trash-2"></span></a>
+            <a th:href="@{'/teams/edit/'+${team.id}+'/teamplayers/'+delete(player_id=${playerTeams.id})}"><span data-feather="trash-2"></span></a>
           </td>
         </tr>
       </th:block>
@@ -61,7 +61,7 @@
 
     <div class="text-center p-3">
       <button type="submit" class="btn btn-dark">Save</button>
-      <a class="btn btn-dark" th:href="@{'/teamplayers/new?team_id=' + ${team.id}}">Create new player</a>
+      <a class="btn btn-dark" th:href="@{'/teams/edit/'+${team.id}+'/teamplayers/new'}">Create new player</a>
     </div>
   </div>
 </form>

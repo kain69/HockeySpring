@@ -15,7 +15,7 @@
 </head>
 <body layout:fragment="content">
 <div class="container text-center">
-    <form th:method="PATCH" th:action="@{/teamplayers(player_id=${teamplayer.id}, team_id=${targetTeam})}" th:object="${teamplayer}"
+        <form th:method="PATCH" th:action="@{/teamplayers(player_id=${teamplayer.id}, team_id=${targetTeam})}" th:object="${teamplayer}"
           style="max-width: 600px; margin: 0 auto">
         <input type="hidden" th:field="*{id}"/>
         <div class="form-group row">

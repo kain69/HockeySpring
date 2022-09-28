@@ -1,9 +1,21 @@
 html, body {
-    height: 100vh;
+    height: 100%;
 }
 
 body {
     font-size: .875rem;
+}
+
+.bg-hockey::after {
+    content: "";
+    background-image: url("/img/hockey_player1.jpg");
+    opacity: 0.15;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
 
 .feather {
@@ -72,6 +84,8 @@ body {
 
 [role="main"] {
     padding-top: 48px; /* Space for fixed navbar */
+    width: 100vw;
+    height: 100vh;
 }
 
 /*

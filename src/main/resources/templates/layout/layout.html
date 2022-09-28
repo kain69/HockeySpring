@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -13,7 +14,8 @@
   <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark p-0 shadow">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark p-0 shadow"
+     th:with="view=${#httpServletRequest.getServletPath()}">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/home}">Hockey manager</a>
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,53 +23,65 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto px-3">
-      <li class="nav-item active">
+      <li class="nav-item" th:classappend="${#strings.startsWith(view,'/home')? 'active' : ''}">
         <a class="nav-link" th:href="@{/home}">
           <span data-feather="home"></span>
+          <span class="sr-only">(current)</span>
           Home
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" th:classappend="${#strings.startsWith(view,'/teams')? 'active' : ''}">
         <a class="nav-link" th:href="@{/teams}">
           <span data-feather="flag"></span>
           Teams
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" th:classappend="${#strings.startsWith(view,'/players')? 'active' : ''}">
         <a class="nav-link" th:href="@{/players}">
           <span data-feather="users"></span>
           Players
+        </a>
+      </li>
+      <li class="nav-item" sec:authorize="hasRole('ADMIN')"
+          th:classappend="${#strings.startsWith(view,'/admin')? 'active' : ''}">
+        <a class="nav-link" th:href="@{/admin}">
+          <span data-feather="tool"></span>
+          Admins Panel
         </a>
       </li>
     </ul>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
         <form th:action="@{/logout}" th:method="POST">
-          <a type="submit" class="nav-link">Sign out</a>
+          <button type="submit" class="nav-link btn btn-link">Sign out</button>
         </form>
       </li>
     </ul>
   </div>
 </nav>
-<div class="container-fluid sidebar" th:fragment="sidebar">
+<div class="container-fluid">
   <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar"
+         th:with="view=${#httpServletRequest.getServletPath()}">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="">
+            <a class="nav-link" th:href="@{/home}"
+               th:classappend="${#strings.startsWith(view,'/home')? 'active' : ''}">
               <span data-feather="home"></span>
-              Home <span class="sr-only">(current)</span>
+              Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/templates/teams}">
+            <a class="nav-link" th:href="@{/teams}"
+               th:classappend="${#strings.startsWith(view,'/teams')? 'active' : ''}">
               <span data-feather="flag"></span>
               Teams
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/templates/players}">
+            <a class="nav-link" th:href="@{/players}"
+               th:classappend="${#strings.startsWith(view,'/players')? 'active' : ''}">
               <span data-feather="users"></span>
               Players
             </a>
@@ -88,7 +102,7 @@
       </div>
     </nav>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 bg-hockey">
       <div layout:fragment="content"></div>
     </main>
   </div>
