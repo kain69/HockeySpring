@@ -22,7 +22,7 @@
     <div th:if="${param.error}" style="color: red">
         Неправильные имя или пароль
     </div>
-    <label for="username" class="sr-only">Login address</label>
+    <label for="username" class="sr-only">Login</label>
     <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
     <label for="password" class="sr-only">Password</label>
     <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
@@ -32,6 +32,7 @@
         </label>
 	</div>
 	<button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+    <h6 class="mt-2"><a href="/auth/registration" class="">or create new account</a></h6>
 	<p class="mt-5 mb-3 text-muted">&copy; 2022-2023</p>
 </form>
 </body>

@@ -5,71 +5,53 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.karmazin.lab1.model.Player;
-import ru.karmazin.lab1.service.PlayersService;
+import ru.karmazin.lab1.model.Person;
+import ru.karmazin.lab1.service.PeopleService;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 
 /**
  * @author Vladislav Karmazin
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/users")
 public class PersonController {
-    private final PlayersService playersService;
+    private final PeopleService peopleService;
 
     @Autowired
-    public PersonController(PlayersService playersService) {
-        this.playersService = playersService;
+    public PersonController(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("players", playersService.findAll());
-        return "players/index";
-    }
-
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("player", playersService.findOne(id));
-        return "players/show";
-    }
-
-    @GetMapping("/new")
-    public String newPlayer(@ModelAttribute("player") Player player) {
-        return "players/new";
-    }
-
-    @PostMapping()
-    public String create(@ModelAttribute("player") @Valid Player player,
-                         BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "players/new";
-
-        playersService.save(player);
-        return "redirect:/players";
+        model.addAttribute("people", peopleService.findAll());
+        model.addAttribute("user_roles", Arrays.asList("ROLE_ADMIN", "ROLE_USER"));
+        return "users/index";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("player", playersService.findOne(id));
-        return "players/edit";
+        model.addAttribute("person", peopleService.findOne(id));
+        model.addAttribute("user_roles", Arrays.asList("ROLE_ADMIN", "ROLE_USER"));
+        return "users/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("player") @Valid Player player,
+    public String update(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
-            return "players/edit";
+            return "users/edit";
 
-        playersService.update(id, player);
-        return "redirect:/players";
+        peopleService.updateRole(id, person);
+        return "redirect:/users";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) {
-        playersService.delete(id);
-        return "redirect:/players";
+        peopleService.delete(id);
+        return "redirect:/users";
     }
 }

@@ -15,41 +15,43 @@
 </head>
 <body layout:fragment="content">
 <div class="container text-center">
-        <form th:method="PATCH" th:action="@{/teamplayers(player_id=${teamplayer.id}, team_id=${targetTeam})}" th:object="${teamplayer}"
-          style="max-width: 600px; margin: 0 auto">
-        <input type="hidden" th:field="*{id}"/>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Select player:</label>
-            <div class="col-sm-8">
-                <select id="player" name="player" class="form-control">
-                    <option th:each="player : ${players}"
-                            th:text="${player.name}+' '+${player.surname}"
-                            th:value="${player.id}" th:selected="${player.id==teamplayer.player.id}"/>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="number">Enter number:</label>
-            <div class="col-sm-8">
-                <input class="form-control" type="text" th:field="*{number}" id="number"/>
-            </div>
-            <div style="color:red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Number Error</div>
-        </div>
-        <div class="form-group row">
-            <label class="col-form-label col-sm-4">Enter role:</label>
-            <div class="col-sm-8">
-                <select id="role" name="role" class="form-control">
-                    <option th:each="playerRole : ${playerRoles}"
-                            th:text="${playerRole.name()}"
-                            th:value="${playerRole.name()}"
-                            th:selected="${playerRole.name()==teamplayer.role.name()}"/>
-                </select>
-            </div>
-        </div>
-        <div class="text-center p-3">
-            <button type="submit" class="btn btn-dark">Save</button>
-        </div>
-    </form>
+    <div><h1>Edit Player</h1></div>
 </div>
+<form th:method="PATCH" th:action="@{/teamplayers(player_id=${teamplayer.id}, team_id=${targetTeam})}"
+      th:object="${teamplayer}"
+      style="max-width: 600px; margin: 0 auto">
+    <input type="hidden" th:field="*{id}"/>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Select player:</label>
+        <div class="col-sm-8">
+            <select id="player" name="player" class="form-control">
+                <option th:each="player : ${players}"
+                        th:text="${player.name}+' '+${player.surname}"
+                        th:value="${player.id}" th:selected="${player.id==teamplayer.player.id}"/>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-sm-4" for="number">Enter number:</label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" th:field="*{number}" id="number"/>
+        </div>
+        <div style="color:red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Number Error</div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-sm-4">Enter role:</label>
+        <div class="col-sm-8">
+            <select id="role" name="role" class="form-control">
+                <option th:each="playerRole : ${playerRoles}"
+                        th:text="${playerRole.name()}"
+                        th:value="${playerRole.name()}"
+                        th:selected="${playerRole.name()==teamplayer.role.name()}"/>
+            </select>
+        </div>
+    </div>
+    <div class="text-center p-3">
+        <button type="submit" class="btn btn-dark">Save</button>
+    </div>
+</form>
 </body>
 </html>

@@ -43,8 +43,8 @@
         </a>
       </li>
       <li class="nav-item" sec:authorize="hasRole('ADMIN')"
-          th:classappend="${#strings.startsWith(view,'/admin')? 'active' : ''}">
-        <a class="nav-link" th:href="@{/admin}">
+          th:classappend="${#strings.startsWith(view,'/users')? 'active' : ''}">
+        <a class="nav-link" th:href="@{/users}">
           <span data-feather="tool"></span>
           Admins Panel
         </a>

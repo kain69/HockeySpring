@@ -19,20 +19,20 @@
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
-            <th style="width: 40%">username</th>
-            <th style="width: 40%">role</th>
+            <th style="width: 40%">Username</th>
+            <th style="width: 40%">Role</th>
             <th style="width: 20%"></th>
         </tr>
         </thead>
         <tbody>
-        <th:block th:each="user : ${users}">
+        <th:block th:each="person : ${people}">
             <tr>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.role}"></td>
+                <td th:text="${person.username}"></td>
+                <td th:text="${person.role}"></td>
                 <td>
-                    <a th:href="@{'admin/edit/' + ${user.id}}"><span data-feather="settings"></span></a>
+                    <a th:href="@{'users/edit/' + ${person.id}}"><span data-feather="settings"></span></a>
                     &nbsp;&nbsp;
-                    <a th:href="@{'admin/delete/' + ${user.id}}"><span data-feather="trash-2"></span></a>
+                    <a th:href="@{'users/delete/' + ${person.id}}"><span data-feather="trash-2"></span></a>
                 </td>
             </tr>
         </th:block>
